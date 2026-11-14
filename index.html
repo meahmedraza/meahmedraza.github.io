@@ -37,25 +37,20 @@ body::before{content:"";position:fixed;inset:-20%;z-index:-2;background:radial-g
 .rv{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.2,.8,.2,1) var(--d,0s),transform .8s cubic-bezier(.2,.8,.2,1) var(--d,0s)}.rv.in{opacity:1;transform:none}
 .ln{display:block;overflow:hidden;padding-bottom:.12em}.ln>span{display:block;transform:translateY(110%);animation:up 1s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:var(--d)}@keyframes up{to{transform:none}}
 .pop{animation:pop .5s cubic-bezier(.2,.8,.2,1)}@keyframes pop{from{opacity:0;transform:scale(.96) translateY(10px)}}
-/* Signature moment: profile photo framed as a registered, scanned slide */
-.ph{position:relative;border-radius:30px;padding:3px;overflow:hidden;isolation:isolate}
+/* Clean, non-collapsing profile portrait frame */
+.ph{position:relative;border-radius:30px;padding:3px;overflow:hidden;isolation:isolate;max-width:360px;margin:0 auto}
 .ph::before{content:"";position:absolute;inset:-60%;z-index:-1;background:conic-gradient(var(--hem),var(--eos),var(--mnt),var(--hem));animation:spin 9s linear infinite}
-.ph>div{position:relative;border-radius:27px;overflow:hidden;background:var(--sf);aspect-ratio:4/5}
-.ph img{width:100%;height:100%;object-fit:cover;object-position:top}
-.sc{position:absolute;left:0;right:0;height:90px;z-index:2;background:linear-gradient(transparent,color-mix(in srgb,var(--mnt) 38%,transparent));border-bottom:2px solid var(--mnt);animation:scan 4.8s ease-in-out infinite}
-@keyframes scan{from{top:-90px}to{top:100%}}@keyframes spin{to{transform:rotate(1turn)}}
-.cm{position:absolute;z-index:3;width:24px;height:24px;border:2px solid var(--mnt)}.c1{top:14px;left:14px;border-right:0;border-bottom:0}.c2{top:14px;right:14px;border-left:0;border-bottom:0}.c3{bottom:14px;left:14px;border-right:0;border-top:0}.c4{bottom:14px;right:14px;border-left:0;border-top:0}
-.cpn{position:absolute;z-index:3;display:flex;align-items:center;gap:.4rem;font:600 10px 'JetBrains Mono',monospace;padding:.28rem .55rem;border-radius:8px;background:rgba(13,10,29,.82);color:#9ff5d8;border:1px solid rgba(62,224,176,.55);opacity:0;animation:pin .6s forwards;animation-delay:var(--d)}
-.cpn::before{content:"";width:6px;height:6px;border-radius:50%;background:#3ee0b0;animation:ping 2s infinite}
-@keyframes pin{from{opacity:0;transform:scale(.6)}to{opacity:1}}@keyframes ping{0%{box-shadow:0 0 0 0 #3ee0b0}70%,100%{box-shadow:0 0 0 8px transparent}}
-.fl{animation:float 6s ease-in-out infinite}@keyframes float{50%{transform:translateY(-9px)}}
+.ph-inner{position:relative;border-radius:27px;overflow:hidden;background:var(--sf);min-height:400px;display:flex;align-items:center;justify-content:center}
+.ph-inner img{width:100%;height:420px;object-fit:cover;object-position:top;user-select:none;-webkit-user-drag:none;pointer-events:none}
+@keyframes spin{to{transform:rotate(1turn)}}
 #ov{clip-path:inset(0 calc(100% - var(--p)) 0 0)}.nocp #cps{display:none}.nomk #mks{display:none}
+.no-dl{user-select:none;-webkit-user-select:none;-webkit-user-drag:none;pointer-events:none}
 .tl{position:relative}.tl::before{content:"";position:absolute;left:.95rem;top:1rem;bottom:1rem;width:2px;background:linear-gradient(var(--hem),var(--eos),transparent)}
 .dot{position:absolute;left:.55rem;top:1.9rem;width:14px;height:14px;border-radius:50%;background:var(--k);box-shadow:0 0 0 5px color-mix(in srgb,var(--k) 24%,transparent)}
 .bar{height:6px;border-radius:9px;background:var(--ln);overflow:hidden}.bar i{display:block;height:100%;width:0;border-radius:9px;background:linear-gradient(90deg,var(--hem),var(--eos));transition:width 1.4s cubic-bezier(.2,.8,.2,1) .3s}.in .bar i{width:var(--w)}
 #ts{transition:all .35s}#ts.show{transform:none;opacity:1}
 :focus-visible{outline:2px solid var(--hem);outline-offset:3px}
-@media (prefers-reduced-motion:reduce){*,*::before{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}.ln>span{transform:none}.cpn{opacity:1}}
+@media (prefers-reduced-motion:reduce){*,*::before{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}.ln>span{transform:none}}
 </style>
 </head>
 <body class="antialiased selection:bg-[var(--hem)] selection:text-white">
@@ -93,7 +88,7 @@ body::before{content:"";position:fixed;inset:-20%;z-index:-2;background:radial-g
       <p class="mu max-w-2xl leading-relaxed rv" style="--d:.7s">BS Computer Science from <b>PAF-IAST</b> (Ehsaas National Merit Scholar). My work covers <b>gigapixel histopathology registration and virtual staining</b> at RISETech (NUST), <b>4-bit quantized Llama-2 RAG systems</b>, and enterprise Python automation at Avantduo, all built for messy, real-world data.</p>
       <div class="flex flex-wrap gap-3 rv" style="--d:.8s">
         <a href="#lab" class="btn bp">Explore the research lab</a>
-        <a href="Ahmed_Raza_CV.pdf" target="_blank" rel="noopener noreferrer" class="btn card !rounded-[14px]">Download CV (PDF) </a>
+        <a href="Ahmed_Raza_CV.pdf" target="_blank" rel="noopener noreferrer" class="btn card !rounded-[14px]">Download CV (PDF)</a>
         <button onclick="cp('ahmedraza8616@gmail.com','Email copied to clipboard')" class="btn card !rounded-[14px]">ahmedraza8616@gmail.com</button>
         <a href="https://github.com/meahmedraza/FBR-Insights-Chatbot" target="_blank" rel="noopener noreferrer" class="btn card !rounded-[14px]">View thesis repo ↗</a>
       </div>
@@ -104,22 +99,23 @@ body::before{content:"";position:fixed;inset:-20%;z-index:-2;background:radial-g
       </div>
     </div>
 
-    <!-- Profile photo (Profile_Image.jpg, same folder as index.html) -->
-    <div class="lg:col-span-5 relative max-w-md mx-auto w-full rv" style="--d:.3s">
-      <div class="ph shadow-2xl"><div>
-        <img src="Profile_Image.jpg" alt="Portrait of Ahmed Raza" fetchpriority="high" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'fd grid place-items-center w-full h-full text-8xl font-extrabold grad',textContent:'AR'}))">
-        <i class="sc"></i><i class="cm c1"></i><i class="cm c2"></i><i class="cm c3"></i><i class="cm c4"></i>
-        <span class="cpn" style="top:16%;left:7%;--d:1.4s">CP_014 registered</span>
-        <span class="cpn" style="top:42%;right:6%;--d:1.9s">CP_118 registered</span>
-        <span class="cpn" style="bottom:20%;left:9%;--d:2.4s">CP_149 registered</span>
-      </div></div>
-      <div class="card fl absolute -bottom-5 -left-3 sm:-left-8 px-4 py-3 shadow-xl"><div class="text-xs mu">PAF-IAST Product Expo</div><div class="fd font-bold">★ Top 5 of 65 projects</div></div>
-      <div class="card fl absolute -top-4 -right-2 sm:-right-6 px-4 py-3 shadow-xl" style="animation-delay:-3s"><div class="text-xs mu">Minority-class accuracy</div><div class="fd font-bold mnt">+15% on <1% data</div></div>
+    <!-- Clean Profile Portrait Card (Place Profile_Image.jpg in same folder) -->
+    <div class="lg:col-span-5 relative w-full rv" style="--d:.3s" oncontextmenu="return false">
+      <div class="ph shadow-2xl">
+        <div class="ph-inner">
+          <img src="Profile_Image.jpg" alt="Portrait of Ahmed Raza" draggable="false" fetchpriority="high" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
+          <div style="display:none" class="fd place-items-center w-full h-[400px] text-7xl font-extrabold grad select-none">AR</div>
+          <div class="absolute bottom-3 inset-x-3 card px-4 py-3 flex items-center justify-between text-xs">
+            <div><b class="fd block text-sm">Ahmed Raza</b><span class="mu">AI & Computer Vision Researcher</span></div>
+            <span class="chip mnt">BS CS · PAF-IAST</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
   <!-- Metrics -->
-  <div id="mt" class="max-w-6xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-4 mt-20"></div>
+  <div id="mt" class="max-w-6xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-4 mt-16"></div>
 </section>
 
 <!-- LAB -->
@@ -132,22 +128,36 @@ body::before{content:"";position:fixed;inset:-20%;z-index:-2;background:radial-g
 
   <div id="pv" class="card p-5 sm:p-8 rv"><div class="grid lg:grid-cols-12 gap-8 items-center">
     <div class="lg:col-span-7 space-y-3">
-      <div class="flex flex-wrap justify-between gap-2"><span class="chip eos">← Raw scan: drift and <1% minority class</span><span class="chip mnt">Registered + SegFormer / SAM 2 →</span></div>
-      <div id="stg" class="relative h-72 sm:h-80 rounded-2xl overflow-hidden select-none" style="--p:50%;border:1px solid var(--ln)">
-        <svg viewBox="0 0 600 320" preserveAspectRatio="xMidYMid slice" class="absolute inset-0 w-full h-full">
+      <div class="flex flex-wrap justify-between gap-2"><span class="chip eos">← Raw / Unstained scan (drift & <1% class)</span><span class="chip mnt">Registered Virtual Stain + SAM 2 →</span></div>
+      <!-- Protected comparison stage: blocks right-click and image dragging -->
+      <div id="stg" oncontextmenu="return false" class="relative h-72 sm:h-80 rounded-2xl overflow-hidden select-none" style="--p:50%;border:1px solid var(--ln)">
+        <!-- RIGHT LAYER: Virtual Stained Image (auto-loads stained.webp if present, else SVG fallback) -->
+        <img id="imgStained" src="stained.webp" alt="" draggable="false" class="no-dl absolute inset-0 w-full h-full object-cover hidden" onload="this.classList.remove('hidden');$('#svgStained').classList.add('hidden')" onerror="this.remove()">
+        <svg id="svgStained" viewBox="0 0 600 320" preserveAspectRatio="xMidYMid slice" class="no-dl absolute inset-0 w-full h-full">
           <defs><radialGradient id="gb" cx="50%" cy="50%" r="75%"><stop offset="0" stop-color="#f7dcec"/><stop offset="1" stop-color="#e3b8d6"/></radialGradient></defs>
           <rect width="600" height="320" fill="url(#gb)"/><g id="cA"></g>
+        </svg>
+        <!-- Overlay masks & control points -->
+        <svg viewBox="0 0 600 320" preserveAspectRatio="xMidYMid slice" class="no-dl absolute inset-0 w-full h-full">
           <g id="mks"><ellipse cx="290" cy="95" rx="62" ry="42" fill="rgba(11,143,107,.16)" stroke="#0b8f6b" stroke-width="2.5" stroke-dasharray="6 3"/><rect x="226" y="36" width="142" height="19" rx="5" fill="#0b8f6b"/><text x="233" y="49" fill="#fff" font-family="JetBrains Mono" font-size="10" font-weight="700">SAM 2 tumor mask 0.94</text>
           <circle cx="485" cy="225" r="24" fill="rgba(255,107,154,.25)" stroke="#d6336c" stroke-width="2.5"/><circle cx="485" cy="225" r="7" fill="#d6336c"/><rect x="372" y="258" width="212" height="20" rx="5" fill="#d6336c"/><text x="379" y="272" fill="#fff" font-family="JetBrains Mono" font-size="10" font-weight="700"><1% fungus anomaly (+15% acc)</text></g>
           <g id="cps" fill="#4c1d95" font-family="JetBrains Mono" font-size="9" font-weight="700"><circle cx="80" cy="60" r="4"/><text x="88" y="63">CP_014</text><circle cx="195" cy="145" r="4"/><text x="203" y="148">CP_062</text><circle cx="355" cy="70" r="4"/><text x="363" y="73">CP_118</text><circle cx="340" cy="185" r="4"/><text x="348" y="188">CP_149</text><circle cx="515" cy="110" r="4"/><text x="523" y="113">CP_176</text></g>
         </svg>
-        <svg id="ov" viewBox="0 0 600 320" preserveAspectRatio="xMidYMid slice" class="absolute inset-0 w-full h-full">
-          <rect width="600" height="320" fill="#1b1a22"/><path d="M0 40Q300 75 600 25M0 110Q280 155 600 95M0 190Q320 235 600 175M0 270Q300 300 600 250" fill="none" stroke="rgba(244,63,94,.3)" stroke-width="1.5" stroke-dasharray="4 4"/>
-          <g id="cB" opacity=".5" transform="translate(22,-16) rotate(4)"></g>
-          <rect x="16" y="16" width="262" height="24" rx="6" fill="rgba(244,63,94,.2)" stroke="#f43f5e"/><text x="26" y="32" fill="#fda4af" font-family="JetBrains Mono" font-size="10.5">Drift Δx=42px, Δy=-29px (blurry GAN output)</text>
-        </svg>
-        <div class="absolute inset-y-0 w-0.5 pointer-events-none" style="left:var(--p);background:var(--mnt);box-shadow:0 0 14px var(--mnt)"><span class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-9 h-9 rounded-full grid place-items-center font-bold shadow-lg" style="background:var(--mnt);color:#0d0a1d">↔</span></div>
-        <input id="rg" type="range" min="4" max="96" value="50" aria-label="Compare raw scan with registered virtual stain" class="absolute inset-0 w-full h-full opacity-0 z-10 cursor-ew-resize">
+
+        <!-- LEFT LAYER: Unstained / Raw Scan (auto-loads unstained.webp if present, else SVG fallback) -->
+        <div id="ov" class="no-dl absolute inset-0 w-full h-full">
+          <img id="imgUnstained" src="unstained.webp" alt="" draggable="false" class="no-dl absolute inset-0 w-full h-full object-cover hidden" onload="this.classList.remove('hidden');$('#svgUnstained').classList.add('hidden')" onerror="this.remove()">
+          <svg id="svgUnstained" viewBox="0 0 600 320" preserveAspectRatio="xMidYMid slice" class="no-dl absolute inset-0 w-full h-full">
+            <rect width="600" height="320" fill="#1b1a22"/><path d="M0 40Q300 75 600 25M0 110Q280 155 600 95M0 190Q320 235 600 175M0 270Q300 300 600 250" fill="none" stroke="rgba(244,63,94,.3)" stroke-width="1.5" stroke-dasharray="4 4"/>
+            <g id="cB" opacity=".5" transform="translate(22,-16) rotate(4)"></g>
+            <rect x="16" y="16" width="262" height="24" rx="6" fill="rgba(244,63,94,.2)" stroke="#f43f5e"/><text x="26" y="32" fill="#fda4af" font-family="JetBrains Mono" font-size="10.5">Unstained / Drift Δx=42px, Δy=-29px</text>
+          </svg>
+        </div>
+
+        <!-- Protective Watermark & Slider Handle -->
+        <div class="no-dl absolute bottom-2 right-3 z-10 text-[10px] font-mono px-2 py-0.5 rounded bg-black/50 text-white/75">© Ahmed Raza · Protected Preview</div>
+        <div class="absolute inset-y-0 w-0.5 pointer-events-none z-10" style="left:var(--p);background:var(--mnt);box-shadow:0 0 14px var(--mnt)"><span class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-9 h-9 rounded-full grid place-items-center font-bold shadow-lg" style="background:var(--mnt);color:#0d0a1d">↔</span></div>
+        <input id="rg" type="range" min="4" max="96" value="50" aria-label="Compare raw scan with registered virtual stain" class="absolute inset-0 w-full h-full opacity-0 z-20 cursor-ew-resize" oncontextmenu="return false">
       </div>
       <div class="flex flex-wrap items-center justify-between gap-2">
         <div class="flex gap-2"><button class="tab on" onclick="this.classList.toggle('on');stg.classList.toggle('nocp')">160–180 control points</button><button class="tab on" onclick="this.classList.toggle('on');stg.classList.toggle('nomk')">SegFormer & SAM 2 masks</button></div>
@@ -225,7 +235,7 @@ body::before{content:"";position:fixed;inset:-20%;z-index:-2;background:radial-g
   <div class="space-y-4">
     <h2 class="fd text-3xl sm:text-4xl font-extrabold rv">Academic & research references</h2>
     <div class="card p-5 rv" style="border-left:4px solid var(--hem)"><h3 class="fd font-bold text-lg">Dr. Muhammad Usman Akram</h3><p class="text-xs hem font-medium mt-0.5">Founder, RISETech Pvt. Ltd. · Professor / HOD (Computer & Software Engineering), NUST H-12, Islamabad</p><p class="text-sm mu mt-2">Supervised my 6-month deep learning research internship in medical image segmentation, virtual staining (Pix2Pix, DCLGAN, SegFormer, SAM 2) and gigapixel slide registration.</p><a href="mailto:info@risetech.pk" class="text-xs hem font-semibold hover:underline mt-3 inline-block">info@risetech.pk</a></div>
-    <div class="card p-5 rv" style="border-left:4px solid var(--eos);--d:.1s"><h3 class="fd font-bold text-lg">Dr. Waqar Mehmood</h3><p class="text-xs eos font-medium mt-0.5">Associate Professor (Ex), Department of IT & Computer Science, PAF-IAST, Haripur</p><p class="text-sm mu mt-2">B.Sc. senior thesis supervisor (<i>FBRInsight OCR & 4-bit Llama-2 RAG</i>, Top 5/65 Product Expo) and instructor for 3 core CS courses.</p></div>
+    <div class="card p-5 rv" style="border-left:4px solid var(--eos);--d:.1s"><h3 class="fd font-bold text-lg">Dr. Waqar Mehmood</h3><p class="text-xs eos font-medium mt-0.5">Associate Professor (Ex), Department of IT & Computer Science, PAF-IAST, Haripur</p><p class="text-sm mu mt-2">B.Sc. senior thesis supervisor (<i>FBRInsight OCR & 4-bit Llama-2 RAG</i>, Top 5/65 Product Expo) and instructor for 3 core CS courses.</p><a href="mailto:drwaqar81@gmail.com" class="text-xs eos font-semibold hover:underline mt-3 inline-block">drwaqar81@gmail.com</a></div>
   </div>
   <div class="card p-6 sm:p-8 flex flex-col justify-between rv" style="--d:.1s">
     <div><h2 class="fd text-3xl font-extrabold mb-3">Let’s talk research or engineering</h2>
@@ -279,7 +289,7 @@ $('#cw').innerHTML=CW.map(c=>`<span class="chip">${c}</span>`).join('');
 $('#sk').innerHTML=SK.map(g=>`<div><div class="text-xs font-semibold mb-2" style="color:var(${g[1]})">${g[0]}</div><div class="flex flex-wrap gap-1.5">${g[2].map(x=>`<span class="chip">${x}</span>`).join('')}</div></div>`).join('');
 $('#ce').innerHTML=CE.map((c,i)=>`<div class="rv" ${dl(i)}><a href="${c[2]}" target="_blank" rel="noopener noreferrer" class="card group p-5 h-full flex flex-col justify-between"><div><div class="flex justify-between text-xs font-semibold mb-2" style="color:var(${c[5]})"><span>${c[0]}</span><span>${c[3]} ↗</span></div><h3 class="fd font-bold group-hover:text-[var(--hem)] transition-colors">${c[1]}</h3></div><div class="mt-4 pt-3 border-t flex justify-between text-xs hem font-semibold" style="border-color:var(--ln)"><span>${c[4]}</span><span class="group-hover:translate-x-1 transition-transform">→</span></div></a></div>`).join('');
 
-/* SVG cells for the histopathology comparison */
+/* SVG fallback cells if unstained.webp / stained.webp are not yet added */
 const CL=[[140,110,48,32],[290,95,56,36],[450,130,52,38],[210,225,60,35],[400,235,50,32]];
 $('#cA').innerHTML=CL.map(c=>`<ellipse cx="${c[0]}" cy="${c[1]}" rx="${c[2]}" ry="${c[3]}" fill="#e879a8" stroke="#be185d" stroke-width="1.5"/><circle cx="${c[0]-5}" cy="${c[1]}" r="${c[3]/2.6}" fill="#4c1d95"/>`).join('');
 $('#cB').innerHTML=CL.slice(0,4).map((c,i)=>`<ellipse cx="${c[0]}" cy="${c[1]}" rx="${c[2]}" ry="${c[3]}" fill="#52525b" stroke="#71717a" stroke-width="2" ${i?'':'stroke-dasharray="3 3"'}/>`).join('');
