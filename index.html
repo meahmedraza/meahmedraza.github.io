@@ -1,600 +1,321 @@
 <!DOCTYPE html>
 <html lang="en" class="dark scroll-smooth">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ahmed Raza | Computer Vision, Efficient LLMs & Data Engineering</title>
-  <meta name="description" content="Academic & Engineering Portfolio of Ahmed Raza — Computer Vision & Efficient AI Researcher (RISETech NUST) and Process Automation Software Engineer (Avantduo)." />
-
-  <!-- Google Fonts: Space Grotesk, Inter, JetBrains Mono -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
-
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            display: ['Space Grotesk', 'sans-serif'],
-            mono: ['JetBrains Mono', 'monospace'],
-          },
-          colors: {
-            obsidian: '#040711',
-            carbon: '#0A0F1D',
-            cyanAccent: '#00F0FF',
-            indigoAccent: '#6366F1',
-            violetAccent: '#8B5CF6',
-          }
-        }
-      }
-    }
-  </script>
-
-  <style>
-    /* ==================== PRO COLOR SYSTEM & CSS VARIABLES ==================== */
-    :root {
-      --bg-base: #F8FAFC;
-      --bg-elevated: #FFFFFF;
-      --bg-subtle: #F1F5F9;
-      --text-main: #0F172A;
-      --text-muted: #475569;
-      --border-subtle: rgba(15, 23, 42, 0.09);
-      --card-surface: rgba(255, 255, 255, 0.88);
-      --pill-bg: rgba(15, 23, 42, 0.05);
-      --pill-text: #1E293B;
-      --spotlight-color: rgba(6, 182, 212, 0.10);
-      --grid-line: rgba(15, 23, 42, 0.04);
-    }
-
-    html.dark {
-      --bg-base: #040711;
-      --bg-elevated: #0A0F1D;
-      --bg-subtle: #111827;
-      --text-main: #F8FAFC;
-      --text-muted: #94A3B8;
-      --border-subtle: rgba(255, 255, 255, 0.08);
-      --card-surface: rgba(10, 15, 29, 0.78);
-      --pill-bg: rgba(30, 41, 59, 0.75);
-      --pill-text: #E2E8F0;
-      --spotlight-color: rgba(0, 240, 255, 0.11);
-      --grid-line: rgba(148, 163, 184, 0.045);
-    }
-
-    body {
-      background-color: var(--bg-base);
-      color: var(--text-main);
-      transition: background-color 0.35s ease, color 0.35s ease;
-      overflow-x: hidden;
-    }
-
-    /* Subtle Tech Grid + Radial Mask */
-    .tech-grid-bg {
-      background-size: 40px 40px;
-      background-image:
-        linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
-        linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
-    }
-
-    /* ==================== CURSOR-TRACKING SPOTLIGHT GLASS CARDS ==================== */
-    .glass-card {
-      position: relative;
-      background: var(--card-surface);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid var(--border-subtle);
-      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-                  border-color 0.35s ease,
-                  box-shadow 0.35s ease;
-      overflow: hidden;
-    }
-
-    .glass-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      background: radial-gradient(
-        550px circle at var(--mouse-x, -500px) var(--mouse-y, -500px),
-        var(--spotlight-color),
-        transparent 40%
-      );
-      opacity: 0;
-      transition: opacity 0.35s ease;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .glass-card:hover::before {
-      opacity: 1;
-    }
-
-    .glass-card > * {
-      position: relative;
-      z-index: 1;
-    }
-
-    .glass-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(6, 182, 212, 0.45);
-      box-shadow: 0 20px 40px -15px rgba(6, 182, 212, 0.16),
-                  0 0 25px -5px rgba(99, 102, 241, 0.12);
-    }
-
-    /* Adaptive Tech Tag Pills */
-    .tech-pill {
-      background: var(--pill-bg);
-      color: var(--pill-text);
-      border: 1px solid var(--border-subtle);
-      transition: all 0.2s ease;
-    }
-    .tech-pill:hover {
-      border-color: rgba(6, 182, 212, 0.5);
-      transform: translateY(-1px);
-    }
-
-    /* Floating Glass Navbar */
-    .glass-nav {
-      background: rgba(4, 7, 17, 0.82);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-    }
-    html:not(.dark) .glass-nav {
-      background: rgba(255, 255, 255, 0.88);
-    }
-
-    /* ==================== ANIMATED CONIC PROFILE FRAME ==================== */
-    @keyframes spinSlow {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    .profile-aura-ring {
-      position: relative;
-      padding: 3px;
-      border-radius: 1.5rem;
-      overflow: hidden;
-    }
-
-    .profile-aura-ring::before {
-      content: "";
-      position: absolute;
-      inset: -50%;
-      background: conic-gradient(
-        from 0deg,
-        transparent 0%,
-        #06B6D4 25%,
-        #6366F1 50%,
-        #10B981 75%,
-        transparent 100%
-      );
-      animation: spinSlow 6s linear infinite;
-    }
-
-    /* Animated Shimmer Gradient Text */
-    @keyframes gradientFlow {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    .animate-gradient-text {
-      background: linear-gradient(90deg, #06B6D4, #38BDF8, #818CF8, #C084FC, #06B6D4);
-      background-size: 300% 300%;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: gradientFlow 7s ease infinite;
-    }
-
-    /* ==================== SCROLL REVEAL ANIMATIONS ==================== */
-    .reveal {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-                  transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .delay-100 { transition-delay: 100ms; }
-    .delay-200 { transition-delay: 200ms; }
-    .delay-300 { transition-delay: 300ms; }
-
-    /* Floating Badge Keyframes */
-    @keyframes floatSlow {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-6px); }
-    }
-    .animate-float {
-      animation: floatSlow 4.5s ease-in-out infinite;
-    }
-
-    /* Custom Range Slider for Histopathology Comparison */
-    input[type=range].comparison-slider {
-      -webkit-appearance: none;
-      appearance: none;
-      background: transparent;
-      cursor: ew-resize;
-    }
-    input[type=range].comparison-slider::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      height: 40px;
-      width: 40px;
-      border-radius: 9999px;
-      background: transparent;
-      cursor: ew-resize;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ahmed Raza | Computer Vision, Efficient LLMs &amp; Data Engineering</title>
+<meta name="description" content="Portfolio of Ahmed Raza: Computer Vision and Efficient AI researcher (RISETech NUST) and Process Automation Software Engineer (Avantduo).">
+<meta name="theme-color" content="#0d0a1d">
+<script>try{if(localStorage.t==='l')document.documentElement.classList.remove('dark')}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{sans:['Instrument Sans','sans-serif'],display:['Bricolage Grotesque','sans-serif'],mono:['JetBrains Mono','monospace']}}}}</script>
+<style>
+/* Palette drawn from H&E histology staining: hematoxylin violet, eosin rose, fluorescence mint */
+:root{--bg:#f8f5fb;--sf:#fff;--tx:#1a1433;--mu:#5b5478;--ln:rgba(26,20,51,.12);--hem:#5b3df5;--eos:#d6336c;--mnt:#0b8f6b;--gl:rgba(91,61,245,.1)}
+.dark{--bg:#0d0a1d;--sf:#161230;--tx:#ece9f8;--mu:#a49dc6;--ln:rgba(236,233,248,.1);--hem:#9580ff;--eos:#ff6b9a;--mnt:#3ee0b0;--gl:rgba(149,128,255,.16)}
+html{scroll-padding-top:90px}
+body{background:var(--bg);color:var(--tx);font-family:'Instrument Sans',sans-serif;overflow-x:hidden;transition:background .4s,color .4s}
+body::before{content:"";position:fixed;inset:-20%;z-index:-2;background:radial-gradient(40% 35% at 18% 12%,color-mix(in srgb,var(--hem) 24%,transparent),transparent),radial-gradient(35% 30% at 86% 24%,color-mix(in srgb,var(--eos) 17%,transparent),transparent),radial-gradient(40% 30% at 60% 92%,color-mix(in srgb,var(--mnt) 11%,transparent),transparent);animation:drift 22s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translate3d(3%,4%,0) scale(1.08)}}
+#au{position:fixed;left:0;top:0;width:520px;height:520px;border-radius:50%;pointer-events:none;z-index:-1;background:radial-gradient(circle,color-mix(in srgb,var(--hem) 15%,transparent),transparent 65%);transition:transform .25s ease-out}
+#pb{position:fixed;top:0;left:0;right:0;height:3px;z-index:60;transform:scaleX(0);transform-origin:0 50%;background:linear-gradient(90deg,var(--hem),var(--eos),var(--mnt))}
+.mu{color:var(--mu)}.mu b,.mu strong{color:var(--tx);font-weight:600}.hem{color:var(--hem)}.eos{color:var(--eos)}.mnt{color:var(--mnt)}
+.fd{font-family:'Bricolage Grotesque',sans-serif;letter-spacing:-.025em}
+.grad{background:linear-gradient(100deg,var(--hem),var(--eos),var(--hem));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:flow 7s linear infinite}
+@keyframes flow{to{background-position:-200% 0}}
+.card{position:relative;background:color-mix(in srgb,var(--sf) 80%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--ln);border-radius:22px;transition:border-color .3s,box-shadow .3s,transform .25s}
+.card::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s;background:radial-gradient(380px circle at var(--mx,50%) var(--my,50%),var(--gl),transparent 60%)}
+.card:hover{border-color:color-mix(in srgb,var(--hem) 55%,transparent);box-shadow:0 24px 50px -28px var(--hem)}.card:hover::after{opacity:1}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.15rem;border-radius:14px;font-weight:600;font-size:.9rem;transition:transform .25s,box-shadow .25s}.btn:hover{transform:translateY(-2px)}
+.bp{background:linear-gradient(100deg,#6d4dff,#e0447f);color:#fff;box-shadow:0 12px 30px -12px #6d4dff}
+.chip{display:inline-block;padding:.22rem .6rem;border-radius:9px;font-size:.74rem;font-weight:500;border:1px solid var(--ln);background:color-mix(in srgb,var(--tx) 5%,transparent)}
+.tab{padding:.45rem .95rem;border-radius:12px;font-size:.82rem;font-weight:600;border:1px solid var(--ln);color:var(--mu);transition:all .25s}.tab:hover{color:var(--tx);border-color:var(--hem)}.tab.on{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+.nl a{padding:.4rem .75rem;border-radius:10px;font-size:.85rem;font-weight:500;color:var(--mu);transition:all .2s}.nl a:hover,.nl a.act{color:var(--tx);background:color-mix(in srgb,var(--hem) 16%,transparent)}
+#nl.open{display:flex;flex-direction:column;position:absolute;top:calc(100% + 8px);left:0;right:0;padding:.6rem;border-radius:18px;background:var(--sf);border:1px solid var(--ln)}
+.rv{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.2,.8,.2,1) var(--d,0s),transform .8s cubic-bezier(.2,.8,.2,1) var(--d,0s)}.rv.in{opacity:1;transform:none}
+.ln{display:block;overflow:hidden;padding-bottom:.12em}.ln>span{display:block;transform:translateY(110%);animation:up 1s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:var(--d)}@keyframes up{to{transform:none}}
+.pop{animation:pop .5s cubic-bezier(.2,.8,.2,1)}@keyframes pop{from{opacity:0;transform:scale(.96) translateY(10px)}}
+/* Signature moment: profile photo framed as a registered, scanned slide */
+.ph{position:relative;border-radius:30px;padding:3px;overflow:hidden;isolation:isolate}
+.ph::before{content:"";position:absolute;inset:-60%;z-index:-1;background:conic-gradient(var(--hem),var(--eos),var(--mnt),var(--hem));animation:spin 9s linear infinite}
+.ph>div{position:relative;border-radius:27px;overflow:hidden;background:var(--sf);aspect-ratio:4/5}
+.ph img{width:100%;height:100%;object-fit:cover;object-position:top}
+.sc{position:absolute;left:0;right:0;height:90px;z-index:2;background:linear-gradient(transparent,color-mix(in srgb,var(--mnt) 38%,transparent));border-bottom:2px solid var(--mnt);animation:scan 4.8s ease-in-out infinite}
+@keyframes scan{from{top:-90px}to{top:100%}}@keyframes spin{to{transform:rotate(1turn)}}
+.cm{position:absolute;z-index:3;width:24px;height:24px;border:2px solid var(--mnt)}.c1{top:14px;left:14px;border-right:0;border-bottom:0}.c2{top:14px;right:14px;border-left:0;border-bottom:0}.c3{bottom:14px;left:14px;border-right:0;border-top:0}.c4{bottom:14px;right:14px;border-left:0;border-top:0}
+.cpn{position:absolute;z-index:3;display:flex;align-items:center;gap:.4rem;font:600 10px 'JetBrains Mono',monospace;padding:.28rem .55rem;border-radius:8px;background:rgba(13,10,29,.82);color:#9ff5d8;border:1px solid rgba(62,224,176,.55);opacity:0;animation:pin .6s forwards;animation-delay:var(--d)}
+.cpn::before{content:"";width:6px;height:6px;border-radius:50%;background:#3ee0b0;animation:ping 2s infinite}
+@keyframes pin{from{opacity:0;transform:scale(.6)}to{opacity:1}}@keyframes ping{0%{box-shadow:0 0 0 0 #3ee0b0}70%,100%{box-shadow:0 0 0 8px transparent}}
+.fl{animation:float 6s ease-in-out infinite}@keyframes float{50%{transform:translateY(-9px)}}
+#ov{clip-path:inset(0 calc(100% - var(--p)) 0 0)}.nocp #cps{display:none}.nomk #mks{display:none}
+.tl{position:relative}.tl::before{content:"";position:absolute;left:.95rem;top:1rem;bottom:1rem;width:2px;background:linear-gradient(var(--hem),var(--eos),transparent)}
+.dot{position:absolute;left:.55rem;top:1.9rem;width:14px;height:14px;border-radius:50%;background:var(--k);box-shadow:0 0 0 5px color-mix(in srgb,var(--k) 24%,transparent)}
+.bar{height:6px;border-radius:9px;background:var(--ln);overflow:hidden}.bar i{display:block;height:100%;width:0;border-radius:9px;background:linear-gradient(90deg,var(--hem),var(--eos));transition:width 1.4s cubic-bezier(.2,.8,.2,1) .3s}.in .bar i{width:var(--w)}
+#ts{transition:all .35s}#ts.show{transform:none;opacity:1}
+:focus-visible{outline:2px solid var(--hem);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){*,*::before{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}.ln>span{transform:none}.cpn{opacity:1}}
+</style>
 </head>
+<body class="antialiased selection:bg-[var(--hem)] selection:text-white">
+<div id="pb"></div><div id="au"></div>
 
-<body class="tech-grid-bg antialiased selection:bg-cyan-500 selection:text-slate-950">
+<!-- NAV -->
+<header class="fixed top-4 inset-x-0 z-50 mx-auto max-w-6xl px-4">
+  <nav class="card relative flex items-center justify-between px-3 sm:px-5 py-2.5 shadow-xl">
+    <a href="#top" class="flex items-center gap-3">
+      <span class="w-9 h-9 rounded-xl grid place-items-center text-white fd font-extrabold" style="background:linear-gradient(135deg,#6d4dff,#e0447f)">AR</span>
+      <span class="leading-tight"><b class="fd block text-sm">Ahmed Raza</b><span class="text-[11px] mu">Computer vision &amp; efficient AI</span></span>
+    </a>
+    <div id="nl" class="nl hidden md:flex items-center gap-1">
+      <a href="#lab">Research lab</a><a href="#experience">Experience</a><a href="#projects">Projects</a><a href="#education">Education</a><a href="#certifications">Certifications</a><a href="#contact">Contact</a>
+    </div>
+    <div class="flex items-center gap-2">
+      <button id="th" aria-label="Toggle theme" class="tab !px-3"><span class="hidden dark:inline">☀</span><span class="dark:hidden">☾</span></button>
+      <a href="#contact" class="btn bp !py-2 !px-4 !text-sm hidden sm:inline-flex">Get in touch</a>
+      <button id="mb" aria-label="Menu" class="tab !px-3 md:hidden">☰</button>
+    </div>
+  </nav>
+</header>
 
-  <!-- ==================== TOP SCROLL PROGRESS BAR ==================== -->
-  <div class="fixed top-0 left-0 right-0 h-1 z-[60] bg-transparent">
-    <div id="scrollProgress" class="h-full w-0 bg-gradient-to-r from-cyan-400 via-indigo-500 to-emerald-400 shadow-[0_0_12px_#06B6D4] transition-[width] duration-75"></div>
+<!-- HERO -->
+<section id="top" class="relative pt-32 pb-16 md:pt-40 px-4">
+  <div class="max-w-6xl mx-auto grid lg:grid-cols-12 gap-12 items-center">
+    <div class="lg:col-span-7 space-y-6">
+      <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full text-xs card rv"><span class="relative flex w-2 h-2"><span class="absolute inset-0 rounded-full bg-[var(--mnt)] animate-ping"></span><span class="relative w-2 h-2 rounded-full bg-[var(--mnt)]"></span></span>Open to funded MS/PhD labs and AI/software engineering roles</div>
+      <h1 class="fd font-extrabold text-5xl sm:text-6xl xl:text-7xl leading-[1.02]">
+        <span class="ln"><span style="--d:.1s">Computer vision,</span></span>
+        <span class="ln"><span style="--d:.25s" class="grad">efficient LLMs &amp;</span></span>
+        <span class="ln"><span style="--d:.4s">data engineering.</span></span>
+      </h1>
+      <p class="text-lg sm:text-xl mu min-h-[2rem] rv" style="--d:.6s">I build <span id="ty" class="font-semibold" style="color:var(--tx)"></span><span class="inline-block w-[2px] h-5 align-middle ml-0.5 animate-pulse bg-[var(--eos)]"></span></p>
+      <p class="mu max-w-2xl leading-relaxed rv" style="--d:.7s">BS Computer Science from <b>PAF-IAST</b> (Ehsaas National Merit Scholar). My work covers <b>gigapixel histopathology registration and virtual staining</b> at RISETech (NUST), <b>4-bit quantized Llama-2 RAG systems</b>, and enterprise Python automation at Avantduo, all built for messy, real-world data.</p>
+      <div class="flex flex-wrap gap-3 rv" style="--d:.8s">
+        <a href="#lab" class="btn bp">Explore the research lab</a>
+        <button onclick="cp('ahmedraza8616@gmail.com','Email copied to clipboard')" class="btn card !rounded-[14px]">ahmedraza8616@gmail.com</button>
+        <a href="https://github.com/meahmedraza/FBR-Insights-Chatbot" target="_blank" rel="noopener noreferrer" class="btn card !rounded-[14px]">View thesis repo ↗</a>
+      </div>
+      <div class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm mu rv" style="--d:.9s">
+        <span>📍 Rawalpindi / Islamabad, Pakistan</span>
+        <a class="hem font-semibold hover:underline" href="https://github.com/meahmedraza" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+        <a class="hem font-semibold hover:underline" href="https://linkedin.com/in/meahmedraza" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+      </div>
+    </div>
+
+    <!-- Profile photo (Profile_Image.jpg, same folder as index.html) -->
+    <div class="lg:col-span-5 relative max-w-md mx-auto w-full rv" style="--d:.3s">
+      <div class="ph shadow-2xl"><div>
+        <img src="Profile_Image.jpg" alt="Portrait of Ahmed Raza" fetchpriority="high" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'fd grid place-items-center w-full h-full text-8xl font-extrabold grad',textContent:'AR'}))">
+        <i class="sc"></i><i class="cm c1"></i><i class="cm c2"></i><i class="cm c3"></i><i class="cm c4"></i>
+        <span class="cpn" style="top:16%;left:7%;--d:1.4s">CP_014 registered</span>
+        <span class="cpn" style="top:42%;right:6%;--d:1.9s">CP_118 registered</span>
+        <span class="cpn" style="bottom:20%;left:9%;--d:2.4s">CP_149 registered</span>
+      </div></div>
+      <div class="card fl absolute -bottom-5 -left-3 sm:-left-8 px-4 py-3 shadow-xl"><div class="text-xs mu">PAF-IAST Product Expo</div><div class="fd font-bold">★ Top 5 of 65 projects</div></div>
+      <div class="card fl absolute -top-4 -right-2 sm:-right-6 px-4 py-3 shadow-xl" style="animation-delay:-3s"><div class="text-xs mu">Minority-class accuracy</div><div class="fd font-bold mnt">+15% on &lt;1% data</div></div>
+    </div>
   </div>
 
-  <!-- ==================== FLOATING TOP NAVBAR ==================== -->
-  <header class="fixed top-4 inset-x-0 z-50 mx-auto max-w-6xl px-4">
-    <nav class="glass-nav border border-slate-300/70 dark:border-slate-800/90 rounded-2xl px-4 sm:px-6 py-3 flex items-center justify-between shadow-2xl">
-      <!-- Brand Identity with Profile Avatar -->
-      <a href="#top" class="flex items-center gap-3 group">
-        <div class="relative w-10 h-10 rounded-xl p-[2px] bg-gradient-to-br from-cyan-400 via-indigo-500 to-emerald-400 shadow-md group-hover:scale-105 transition-transform">
-          <img
-            src="Profile_Image.jpg"
-            alt="Ahmed Raza"
-            onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%230A0F1D%22/><text x=%2250%22 y=%2262%22 font-family=%22Space Grotesk, sans-serif%22 font-size=%2238%22 font-weight=%22bold%22 fill=%22%2306B6D4%22 text-anchor=%22middle%22>AR</text></svg>';"
-            class="w-full h-full object-cover rounded-[10px] bg-slate-900"
-          />
-          <span class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-400 ring-2 ring-slate-950"></span>
-        </div>
-        <div>
-          <span class="font-display font-bold tracking-tight text-slate-900 dark:text-white text-base block leading-none">Ahmed Raza</span>
-          <span class="font-mono text-[11px] text-cyan-600 dark:text-cyan-400 block mt-1">Vision AI • Efficient LLMs</span>
-        </div>
-      </a>
+  <!-- Metrics -->
+  <div id="mt" class="max-w-6xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-4 mt-20"></div>
+</section>
 
-      <!-- Desktop Navigation Links -->
-      <div class="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-600 dark:text-slate-300">
-        <a href="#lab-visualizer" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">Interactive Lab</a>
-        <a href="#experience" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">Experience</a>
-        <a href="#projects" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">Projects</a>
-        <a href="#education" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">Education</a>
-        <a href="#certifications" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">Certifications</a>
-        <a href="#contact" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">References & Contact</a>
+<!-- LAB -->
+<section id="lab" class="py-20 px-4"><div class="max-w-6xl mx-auto">
+  <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 rv">
+    <h2 class="fd text-4xl sm:text-5xl font-extrabold max-w-xl">Interactive research lab</h2>
+    <p class="mu text-sm max-w-md">Drag through the bottlenecks I solved in histopathology at RISETech (NUST) and in 4-bit LLM retrieval at PAF-IAST.</p>
+  </div>
+  <div class="flex flex-wrap gap-2 mb-5 rv"><button id="tv" class="tab on" onclick="tab('v')">Histopathology registration &amp; virtual staining</button><button id="tr" class="tab" onclick="tab('r')">4-bit LoRA + RAG pipeline</button></div>
+
+  <div id="pv" class="card p-5 sm:p-8 rv"><div class="grid lg:grid-cols-12 gap-8 items-center">
+    <div class="lg:col-span-7 space-y-3">
+      <div class="flex flex-wrap justify-between gap-2"><span class="chip eos">← Raw scan: drift and &lt;1% minority class</span><span class="chip mnt">Registered + SegFormer / SAM 2 →</span></div>
+      <div id="stg" class="relative h-72 sm:h-80 rounded-2xl overflow-hidden select-none" style="--p:50%;border:1px solid var(--ln)">
+        <svg viewBox="0 0 600 320" preserveAspectRatio="xMidYMid slice" class="absolute inset-0 w-full h-full">
+          <defs><radialGradient id="gb" cx="50%" cy="50%" r="75%"><stop offset="0" stop-color="#f7dcec"/><stop offset="1" stop-color="#e3b8d6"/></radialGradient></defs>
+          <rect width="600" height="320" fill="url(#gb)"/><g id="cA"></g>
+          <g id="mks"><ellipse cx="290" cy="95" rx="62" ry="42" fill="rgba(11,143,107,.16)" stroke="#0b8f6b" stroke-width="2.5" stroke-dasharray="6 3"/><rect x="226" y="36" width="142" height="19" rx="5" fill="#0b8f6b"/><text x="233" y="49" fill="#fff" font-family="JetBrains Mono" font-size="10" font-weight="700">SAM 2 tumor mask 0.94</text>
+          <circle cx="485" cy="225" r="24" fill="rgba(255,107,154,.25)" stroke="#d6336c" stroke-width="2.5"/><circle cx="485" cy="225" r="7" fill="#d6336c"/><rect x="372" y="258" width="212" height="20" rx="5" fill="#d6336c"/><text x="379" y="272" fill="#fff" font-family="JetBrains Mono" font-size="10" font-weight="700">&lt;1% fungus anomaly (+15% acc)</text></g>
+          <g id="cps" fill="#4c1d95" font-family="JetBrains Mono" font-size="9" font-weight="700"><circle cx="80" cy="60" r="4"/><text x="88" y="63">CP_014</text><circle cx="195" cy="145" r="4"/><text x="203" y="148">CP_062</text><circle cx="355" cy="70" r="4"/><text x="363" y="73">CP_118</text><circle cx="340" cy="185" r="4"/><text x="348" y="188">CP_149</text><circle cx="515" cy="110" r="4"/><text x="523" y="113">CP_176</text></g>
+        </svg>
+        <svg id="ov" viewBox="0 0 600 320" preserveAspectRatio="xMidYMid slice" class="absolute inset-0 w-full h-full">
+          <rect width="600" height="320" fill="#1b1a22"/><path d="M0 40Q300 75 600 25M0 110Q280 155 600 95M0 190Q320 235 600 175M0 270Q300 300 600 250" fill="none" stroke="rgba(244,63,94,.3)" stroke-width="1.5" stroke-dasharray="4 4"/>
+          <g id="cB" opacity=".5" transform="translate(22,-16) rotate(4)"></g>
+          <rect x="16" y="16" width="262" height="24" rx="6" fill="rgba(244,63,94,.2)" stroke="#f43f5e"/><text x="26" y="32" fill="#fda4af" font-family="JetBrains Mono" font-size="10.5">Drift Δx=42px, Δy=-29px (blurry GAN output)</text>
+        </svg>
+        <div class="absolute inset-y-0 w-0.5 pointer-events-none" style="left:var(--p);background:var(--mnt);box-shadow:0 0 14px var(--mnt)"><span class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-9 h-9 rounded-full grid place-items-center font-bold shadow-lg" style="background:var(--mnt);color:#0d0a1d">↔</span></div>
+        <input id="rg" type="range" min="4" max="96" value="50" aria-label="Compare raw scan with registered virtual stain" class="absolute inset-0 w-full h-full opacity-0 z-10 cursor-ew-resize">
       </div>
-
-      <!-- Actions: Theme Toggle, Deploy Guide & Mobile Menu -->
-      <div class="flex items-center gap-2 sm:gap-2.5">
-        <button id="deployGuideBtn" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-mono font-medium bg-indigo-500/10 text-indigo-600 dark:text-indigo-300 border border-indigo-500/30 hover:bg-indigo-500/20 transition-all">
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-          Deploy Guide
-        </button>
-
-        <!-- Theme Toggle Button -->
-        <button id="themeToggle" aria-label="Toggle Dark/Light Mode" class="p-2 rounded-xl border border-slate-300 dark:border-slate-700/80 text-slate-700 dark:text-slate-300 hover:border-cyan-500 transition-colors">
-          <svg class="w-4 h-4 hidden dark:block text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-          </svg>
-          <svg class="w-4 h-4 block dark:hidden text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-          </svg>
-        </button>
-
-        <a href="#contact" class="hidden sm:inline-flex px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-gradient-to-r from-cyan-500 to-indigo-600 text-white shadow-md shadow-cyan-500/20 hover:opacity-95 transition-opacity">
-          Connect
-        </a>
-
-        <!-- Mobile Hamburger Menu Button -->
-        <button id="mobileMenuBtn" aria-label="Open Navigation Menu" class="lg:hidden p-2 rounded-xl border border-slate-300 dark:border-slate-700/80 text-slate-700 dark:text-slate-300">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-          </svg>
-        </button>
-      </div>
-    </nav>
-
-    <!-- Mobile Navigation Dropdown -->
-    <div id="mobileMenuDrawer" class="hidden lg:hidden mt-2 glass-nav border border-slate-300/70 dark:border-slate-800/90 rounded-2xl p-4 shadow-2xl">
-      <div class="flex flex-col space-y-2.5 text-sm font-medium text-slate-700 dark:text-slate-200">
-        <a href="#lab-visualizer" class="mobile-nav-link px-3 py-2 rounded-xl hover:bg-cyan-500/10 hover:text-cyan-400">Interactive Lab</a>
-        <a href="#experience" class="mobile-nav-link px-3 py-2 rounded-xl hover:bg-cyan-500/10 hover:text-cyan-400">Experience</a>
-        <a href="#projects" class="mobile-nav-link px-3 py-2 rounded-xl hover:bg-cyan-500/10 hover:text-cyan-400">Projects</a>
-        <a href="#education" class="mobile-nav-link px-3 py-2 rounded-xl hover:bg-cyan-500/10 hover:text-cyan-400">Education</a>
-        <a href="#certifications" class="mobile-nav-link px-3 py-2 rounded-xl hover:bg-cyan-500/10 hover:text-cyan-400">Certifications</a>
-        <a href="#contact" class="mobile-nav-link px-3 py-2 rounded-xl hover:bg-cyan-500/10 hover:text-cyan-400">References & Contact</a>
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex gap-2"><button class="tab on" onclick="this.classList.toggle('on');stg.classList.toggle('nocp')">160–180 control points</button><button class="tab on" onclick="this.classList.toggle('on');stg.classList.toggle('nomk')">SegFormer &amp; SAM 2 masks</button></div>
+        <span class="text-xs mu">Drag the slider to inspect alignment</span>
       </div>
     </div>
-  </header>
+    <div class="lg:col-span-5 space-y-4">
+      <span class="chip hem">RISETech (NUST H-12) · Supervisor: Dr. M. Usman Akram</span>
+      <h3 class="fd font-bold text-2xl">Fixing spatial label noise and &lt;1% class imbalance</h3>
+      <p class="text-sm mu leading-relaxed">Thin gigapixel biopsy tissue warps during chemical preparation. Intensity-based registration failed, so misaligned patches reached <b>Pix2Pix</b> and <b>DCLGAN</b> and produced blurry, hallucinated cell borders.</p>
+      <ul class="space-y-2.5 text-sm mu list-disc pl-4 marker:text-[var(--eos)]">
+        <li><b>160–180 control-point registration</b> in QuPath and Fiji gave pixel-exact pairing before adversarial training.</li>
+        <li><b>+15% accuracy on a &lt;1% fungal class</b> by rebuilding patch sampling and adding synthetic augmentation on NVIDIA GPUs.</li>
+        <li><b>Contrast-preserving preprocessing</b> in OpenCV and NumPy for dark, low-resolution clinical scans.</li>
+      </ul>
+    </div>
+  </div></div>
 
-  <!-- ==================== HERO SECTION ==================== -->
-  <section id="top" class="relative pt-32 pb-16 md:pt-40 md:pb-24 px-4 overflow-hidden">
-    <!-- Interactive Neural Node Background Canvas -->
-    <canvas id="neuralCanvas" class="absolute inset-0 w-full h-full pointer-events-none opacity-55 dark:opacity-75"></canvas>
+  <div id="pr" class="card p-5 sm:p-8 hidden">
+    <div class="flex flex-wrap justify-between gap-2 mb-4 text-sm"><span class="mu">Select a stage to inspect the architecture</span><a class="hem font-semibold hover:underline" href="https://github.com/meahmedraza/FBR-Insights-Chatbot" target="_blank" rel="noopener noreferrer">github.com/meahmedraza/FBR-Insights-Chatbot ↗</a></div>
+    <div id="rs" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3"></div>
+    <div id="rd" class="mt-5"></div>
+  </div>
+</div></section>
 
-    <!-- Ambient Glow Orbs -->
-    <div class="absolute -top-28 left-1/4 w-[28rem] h-[28rem] bg-cyan-500/15 rounded-full blur-[110px] pointer-events-none"></div>
-    <div class="absolute top-16 right-1/4 w-[28rem] h-[28rem] bg-indigo-600/15 rounded-full blur-[110px] pointer-events-none"></div>
+<!-- EXPERIENCE -->
+<section id="experience" class="py-20 px-4"><div class="max-w-6xl mx-auto">
+  <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 rv">
+    <h2 class="fd text-4xl sm:text-5xl font-extrabold">Research &amp; engineering experience</h2>
+    <div id="exF" class="flex gap-2"><button class="tab on" onclick="flt('ex','all',this)">All (4)</button><button class="tab" onclick="flt('ex','research',this)">Research (2)</button><button class="tab" onclick="flt('ex','swe',this)">Software (2)</button></div>
+  </div>
+  <div id="exp" class="tl space-y-6"></div>
+</div></section>
 
-    <div class="relative max-w-6xl mx-auto">
-      <!-- Main Hero Grid -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+<!-- PROJECTS -->
+<section id="projects" class="py-20 px-4"><div class="max-w-6xl mx-auto">
+  <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10 rv">
+    <h2 class="fd text-4xl sm:text-5xl font-extrabold">Featured projects</h2>
+    <div id="pjF" class="flex flex-wrap gap-2"><button class="tab on" onclick="flt('pj','all',this)">All (5)</button><button class="tab" onclick="flt('pj','cv',this)">Computer vision</button><button class="tab" onclick="flt('pj','llm',this)">LLMs &amp; RAG</button><button class="tab" onclick="flt('pj','automation',this)">Automation</button></div>
+  </div>
+  <div id="prj" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+</div></section>
 
-        <!-- Left 7 Columns: Copy, Dynamic Role Typewriter & Actions -->
-        <div class="lg:col-span-7 space-y-6 reveal visible">
-          <!-- Status Pill -->
-          <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-700 dark:text-cyan-300 text-xs font-mono">
-            <span class="relative flex h-2 w-2">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
-            </span>
-            <span>Open to Funded MS/PhD Research Labs & AI Engineering Roles</span>
-          </div>
-
-          <div class="space-y-3">
-            <div class="font-mono text-xs sm:text-sm text-cyan-600 dark:text-cyan-400 tracking-wide uppercase font-semibold flex items-center gap-2">
-              <span>// AHMED RAZA</span>
-              <span>•</span>
-              <span id="typewriterText" class="text-indigo-600 dark:text-indigo-400">Computer Vision Researcher</span>
-              <span class="animate-pulse text-cyan-400">|</span>
-            </div>
-
-            <h1 class="font-display font-bold text-4xl sm:text-5xl lg:text-[3.45rem] tracking-tight text-slate-900 dark:text-white leading-[1.08]">
-              Building <span class="animate-gradient-text">Vision AI, 4-Bit LLMs</span> & High-Speed Data Pipelines
-            </h1>
-          </div>
-
-          <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed">
-            I’m <strong class="text-slate-900 dark:text-white font-semibold">Ahmed Raza</strong> — BS in Computer Science (<span class="text-cyan-600 dark:text-cyan-400 font-medium">PAF-IAST, Ehsaas National Merit Scholar</span>). I engineer visual and language models that survive noisy, real-world clinical and enterprise data: from <strong class="text-slate-900 dark:text-white font-medium">gigapixel histopathology registration & virtual staining</strong> at RISETech (NUST) to <strong class="text-slate-900 dark:text-white font-medium">4-bit quantized Llama-2 RAG systems</strong> and automated Python ETL engines at Avantduo.
-          </p>
-
-          <!-- Location & Social Links Bar -->
-          <div class="flex flex-wrap items-center gap-4 text-xs sm:text-sm font-mono text-slate-500 dark:text-slate-400">
-            <span class="inline-flex items-center gap-1.5">
-              <svg class="w-4 h-4 text-cyan-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-              Rawalpindi / Islamabad, Pakistan
-            </span>
-            <span>•</span>
-            <a href="https://github.com/meahmedraza" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-slate-700 dark:text-slate-200 hover:text-cyan-400 transition-colors underline decoration-cyan-500/40 underline-offset-4">
-              github.com/meahmedraza ↗
-            </a>
-            <span>•</span>
-            <a href="https://linkedin.com/in/meahmedraza" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-slate-700 dark:text-slate-200 hover:text-cyan-400 transition-colors underline decoration-cyan-500/40 underline-offset-4">
-              linkedin.com/in/meahmedraza ↗
-            </a>
-          </div>
-
-          <!-- Primary CTA Buttons -->
-          <div class="flex flex-wrap items-center gap-3.5 pt-2">
-            <a href="#lab-visualizer" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-semibold text-sm bg-gradient-to-r from-cyan-500 via-sky-500 to-indigo-600 text-white shadow-lg shadow-cyan-500/25 hover:scale-[1.02] transition-transform">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-              Explore Interactive Lab
-            </a>
-
-            <button onclick="copyToClipboard('ahmedraza8616@gmail.com', 'Email address copied to clipboard!')" class="inline-flex items-center gap-2 px-4 py-3 rounded-xl font-mono text-xs sm:text-sm glass-card text-slate-800 dark:text-slate-200">
-              <svg class="w-4 h-4 text-cyan-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-              ahmedraza8616@gmail.com
-            </button>
-
-            <a href="https://github.com/meahmedraza/FBR-Insights-Chatbot" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-3 rounded-xl font-mono text-xs sm:text-sm glass-card text-slate-800 dark:text-slate-200">
-              <svg class="w-4 h-4 text-indigo-400" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-              Thesis Repo ↗
-            </a>
-          </div>
-        </div>
-
-        <!-- Right 5 Columns: Profile_Image.jpg Showcase + Research Identity Card -->
-        <div class="lg:col-span-5 reveal visible delay-100">
-          <div class="profile-aura-ring shadow-2xl">
-            <div class="glass-card rounded-[21px] p-6 relative">
-              <!-- Top Portrait Row -->
-              <div class="flex flex-col sm:flex-row items-center gap-5 pb-5 border-b border-slate-200/70 dark:border-slate-800/80">
-                <div class="relative w-28 h-28 sm:w-32 sm:h-32 shrink-0 rounded-2xl p-1 bg-gradient-to-br from-cyan-400 via-indigo-500 to-emerald-400 shadow-xl animate-float">
-                  <img
-                    src="Profile_Image.jpg"
-                    alt="Ahmed Raza Portrait"
-                    onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 200%22><defs><linearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22><stop offset=%220%25%22 stop-color=%22%230A0F1D%22/><stop offset=%22100%25%22 stop-color=%22%231E293B%22/></linearGradient></defs><rect width=%22200%22 height=%22200%22 fill=%22url(%23g)%22/><text x=%22100%22 y=%22118%22 font-family=%22Space Grotesk, sans-serif%22 font-size=%2264%22 font-weight=%22bold%22 fill=%22%2306B6D4%22 text-anchor=%22middle%22>AR</text></svg>';"
-                    class="w-full h-full object-cover object-top rounded-[12px] bg-slate-900"
-                  />
-                  <div class="absolute -bottom-2 -right-2 px-2 py-0.5 rounded-md bg-emerald-500 text-slate-950 font-mono font-bold text-[10px] shadow-md">
-                    240 ECTS
-                  </div>
-                </div>
-
-                <div class="text-center sm:text-left space-y-1.5">
-                  <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-cyan-500/10 text-cyan-600 dark:text-cyan-300 font-mono text-[11px] font-semibold">
-                    B.Sc. Computer Science • PAF-IAST
-                  </div>
-                  <h2 class="font-display font-bold text-2xl text-slate-900 dark:text-white">
-                    Ahmed Raza
-                  </h2>
-                  <p class="text-xs font-mono text-slate-500 dark:text-slate-400">
-                    Ex-Deep Learning Research Intern @ RISETech (NUST) • Process Automation SWE @ Avantduo
-                  </p>
-                  <div class="flex flex-wrap justify-center sm:justify-start gap-1.5 pt-1">
-                    <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-indigo-500/15 text-indigo-600 dark:text-indigo-300 border border-indigo-500/30">AWS SAA-C03</span>
-                    <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-sky-500/15 text-sky-600 dark:text-sky-300 border border-sky-500/30">Azure AI-900</span>
-                    <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-amber-500/15 text-amber-600 dark:text-amber-300 border border-amber-500/30">Top 5/65 Thesis</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- 3 Core Research Pillars -->
-              <div class="space-y-3 pt-4 text-xs sm:text-sm">
-                <div class="p-3 rounded-xl bg-slate-900/5 dark:bg-slate-900/70 border border-slate-200/70 dark:border-slate-800/90">
-                  <div class="font-semibold text-slate-900 dark:text-white flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
-                    Medical Vision & Generative Imaging
-                  </div>
-                  <p class="text-xs text-slate-600 dark:text-slate-400 mt-1">
-                    Pix2Pix, DCLGAN, SegFormer & SAM 2 for virtual staining, tumor segmentation, and 160–180 pt slide registration.
-                  </p>
-                </div>
-
-                <div class="p-3 rounded-xl bg-slate-900/5 dark:bg-slate-900/70 border border-slate-200/70 dark:border-slate-800/90">
-                  <div class="font-semibold text-slate-900 dark:text-white flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-indigo-400"></span>
-                    Efficient LLMs & Multimodal RAG
-                  </div>
-                  <p class="text-xs text-slate-600 dark:text-slate-400 mt-1">
-                    4-bit NF4 quantization (<code class="font-mono">bitsandbytes</code>), LoRA fine-tuning (Llama-2-7B), Phi-3 synthetic QA, and FAISS.
-                  </p>
-                </div>
-
-                <div class="p-3 rounded-xl bg-slate-900/5 dark:bg-slate-900/70 border border-slate-200/70 dark:border-slate-800/90">
-                  <div class="font-semibold text-slate-900 dark:text-white flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-                    Learning from Imperfect Data
-                  </div>
-                  <p class="text-xs text-slate-600 dark:text-slate-400 mt-1">
-                    Solving <1% minority-class imbalance (+15% accuracy), spatial label drift, and multi-column OCR under tight VRAM.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
+<!-- EDUCATION -->
+<section id="education" class="py-20 px-4"><div class="max-w-6xl mx-auto">
+  <h2 class="fd text-4xl sm:text-5xl font-extrabold mb-10 rv">Education, scholarships &amp; skills</h2>
+  <div class="grid lg:grid-cols-12 gap-6">
+    <div class="lg:col-span-7 space-y-6">
+      <div class="card p-6 sm:p-7 rv">
+        <div class="flex flex-wrap justify-between gap-2 mb-2 text-sm"><span class="hem font-semibold">Oct 2020 – Jan 2025</span><span class="chip">130 credit hours / 240 ECTS</span></div>
+        <h3 class="fd font-bold text-2xl">Bachelor of Science in Computer Science</h3>
+        <p class="text-sm mu mt-1">Pak-Austria Fachhochschule: Institute of Applied Sciences and Technology (PAF-IAST), Haripur · English medium of instruction (C1 equivalent)</p>
+        <div class="grid sm:grid-cols-3 gap-3 mt-5" id="gp"></div>
+        <p class="text-xs mu mt-5 mb-2">Selected mathematics and AI coursework</p>
+        <div id="cw" class="flex flex-wrap gap-1.5"></div>
       </div>
-
-      <!-- Key Metrics Counter Bar (4 Pillars) -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-12 reveal">
-        <div class="glass-card rounded-2xl p-5 border-l-4 border-l-cyan-500">
-          <div class="font-mono font-bold text-2xl sm:text-3xl text-cyan-600 dark:text-cyan-400">160–180 pt</div>
-          <div class="font-semibold text-sm text-slate-900 dark:text-white mt-1">Gigapixel Slide Registration</div>
-          <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Manual control-point alignment in QuPath & Fiji eliminating GAN label noise</p>
-        </div>
-
-        <div class="glass-card rounded-2xl p-5 border-l-4 border-l-indigo-500">
-          <div class="font-mono font-bold text-2xl sm:text-3xl text-indigo-600 dark:text-indigo-400">+15% Acc</div>
-          <div class="font-semibold text-sm text-slate-900 dark:text-white mt-1"><1% Minority Class Boost</div>
-          <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Clinical skin fungus anomaly detection via synthetic patch augmentation on GPUs</p>
-        </div>
-
-        <div class="glass-card rounded-2xl p-5 border-l-4 border-l-sky-500">
-          <div class="font-mono font-bold text-2xl sm:text-3xl text-sky-600 dark:text-sky-400">4-Bit LoRA</div>
-          <div class="font-semibold text-sm text-slate-900 dark:text-white mt-1">Llama-2-7B + FAISS RAG</div>
-          <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">500+ hrs R&D over noisy FBR tax PDFs — Ranked Top 5 / 65 at Product Expo</p>
-        </div>
-
-        <div class="glass-card rounded-2xl p-5 border-l-4 border-l-emerald-500">
-          <div class="font-mono font-bold text-2xl sm:text-3xl text-emerald-600 dark:text-emerald-400">96% Faster</div>
-          <div class="font-semibold text-sm text-slate-900 dark:text-white mt-1">2–3 hrs → 4–5 mins</div>
-          <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Enterprise Python ETL & month-end reconciliation pipelines at Avantduo</p>
-        </div>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div class="card p-5 rv" style="border-left:4px solid var(--eos)"><div class="text-xs eos font-semibold">2020 – 2025 · Full merit grant</div><h4 class="fd font-bold mt-1">Ehsaas Undergraduate Merit Scholarship</h4><p class="text-xs mu mt-2 leading-relaxed">Fully funded national scholarship covering 100% of tuition and a living stipend for the whole 4-year degree.</p></div>
+        <div class="card p-5 rv" style="border-left:4px solid var(--hem);--d:.1s"><div class="text-xs hem font-semibold">June 2024 · Research presentation</div><h4 class="fd font-bold mt-1">Top 5 Intelligent Software Systems Award</h4><p class="text-xs mu mt-2 leading-relaxed">Live demo of the <i>FBRInsight OCR &amp; RAG</i> system at the PAF-IAST Product Expo: <b>Top 5 of 65</b> graduating projects.</p></div>
       </div>
     </div>
-  </section>
+    <div class="lg:col-span-5 card p-6 sm:p-7 rv" style="--d:.1s"><h3 class="fd font-bold text-2xl mb-5">Technical skills &amp; tooling</h3><div id="sk" class="space-y-5"></div>
+      <p class="text-xs mu pt-5 mt-5 border-t" style="border-color:var(--ln)"><b>Languages:</b> English (C1, certified medium of instruction), Urdu, Punjabi, Hindko (native)</p></div>
+  </div>
+</div></section>
 
-  <!-- ==================== INTERACTIVE FEATURE 1: RESEARCH LAB VISUALIZER ==================== -->
-  <section id="lab-visualizer" class="py-16 px-4 reveal">
-    <div class="max-w-6xl mx-auto">
-      <!-- Section Header -->
-      <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
-        <div>
-          <span class="font-mono text-xs uppercase tracking-widest text-cyan-600 dark:text-cyan-400 font-semibold block mb-2">
-            // Interactive Technical Showcase
-          </span>
-          <h2 class="font-display font-bold text-3xl sm:text-4xl text-slate-900 dark:text-white">
-            Interactive Research Lab Visualizer
-          </h2>
-        </div>
-        <p class="text-sm text-slate-600 dark:text-slate-400 max-w-md">
-          Inspect the exact computer vision and 4-bit LLM retrieval bottlenecks I solved at <strong class="text-slate-900 dark:text-white">RISETech (NUST)</strong> and <strong class="text-slate-900 dark:text-white">PAF-IAST</strong>.
-        </p>
-      </div>
+<!-- CERTIFICATIONS -->
+<section id="certifications" class="py-20 px-4"><div class="max-w-6xl mx-auto">
+  <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 rv"><h2 class="fd text-4xl sm:text-5xl font-extrabold">Verified certifications</h2><p class="text-sm mu">Open any card to see the live credential on Credly or Coursera.</p></div>
+  <div id="ce" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4"></div>
+</div></section>
 
-      <!-- Dual-Tab Switcher -->
-      <div class="flex flex-wrap gap-3 mb-6">
-        <button id="tabBtnVision" onclick="switchLabTab('vision')" class="px-5 py-3 rounded-xl font-display font-semibold text-sm flex items-center gap-2.5 bg-gradient-to-r from-cyan-500 to-indigo-600 text-white shadow-md transition-all">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-          Tab A: Histopathology Registration & Virtual Staining (RISETech)
-        </button>
+<!-- CONTACT -->
+<section id="contact" class="py-20 px-4"><div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-8">
+  <div class="space-y-4">
+    <h2 class="fd text-3xl sm:text-4xl font-extrabold rv">Academic &amp; research references</h2>
+    <div class="card p-5 rv" style="border-left:4px solid var(--hem)"><h3 class="fd font-bold text-lg">Dr. Muhammad Usman Akram</h3><p class="text-xs hem font-medium mt-0.5">Founder, RISETech Pvt. Ltd. · Professor / HOD (Computer &amp; Software Engineering), NUST H-12, Islamabad</p><p class="text-sm mu mt-2">Supervised my 6-month deep learning research internship in medical image segmentation, virtual staining (Pix2Pix, DCLGAN, SegFormer, SAM 2) and gigapixel slide registration.</p><a href="mailto:info@risetech.pk" class="text-xs hem font-semibold hover:underline mt-3 inline-block">info@risetech.pk</a></div>
+    <div class="card p-5 rv" style="border-left:4px solid var(--eos);--d:.1s"><h3 class="fd font-bold text-lg">Dr. Waqar Mehmood</h3><p class="text-xs eos font-medium mt-0.5">Associate Professor (Ex), Department of IT &amp; Computer Science, PAF-IAST, Haripur</p><p class="text-sm mu mt-2">B.Sc. senior thesis supervisor (<i>FBRInsight OCR &amp; 4-bit Llama-2 RAG</i>, Top 5/65 Product Expo) and instructor for 3 core CS courses.</p></div>
+  </div>
+  <div class="card p-6 sm:p-8 flex flex-col justify-between rv" style="--d:.1s">
+    <div><h2 class="fd text-3xl font-extrabold mb-3">Let’s talk research or engineering</h2>
+      <p class="text-sm mu leading-relaxed mb-6">Whether you lead a computer vision or multimodal AI lab, or your team needs fast, reliable Python and deep learning pipelines, reach out directly.</p>
+      <div class="space-y-3">
+        <div class="flex items-center justify-between gap-3 p-3.5 rounded-xl" style="background:color-mix(in srgb,var(--tx) 5%,transparent)"><div><div class="text-[11px] mu">Email</div><div class="font-semibold text-sm break-all">ahmedraza8616@gmail.com</div></div><button class="tab" onclick="cp('ahmedraza8616@gmail.com','Email copied to clipboard')">Copy</button></div>
+        <div class="flex items-center justify-between gap-3 p-3.5 rounded-xl" style="background:color-mix(in srgb,var(--tx) 5%,transparent)"><div><div class="text-[11px] mu">Phone / WhatsApp</div><div class="font-semibold text-sm">+92 330 9864878</div></div><button class="tab" onclick="cp('+92 330 9864878','Phone number copied to clipboard')">Copy</button></div>
+      </div></div>
+    <div class="flex flex-wrap gap-3 pt-6 mt-6 border-t" style="border-color:var(--ln)"><a href="mailto:ahmedraza8616@gmail.com" class="btn bp flex-1 justify-center">Send an email</a><a href="https://github.com/meahmedraza" target="_blank" rel="noopener noreferrer" class="btn card !rounded-[14px]">GitHub ↗</a><a href="https://linkedin.com/in/meahmedraza" target="_blank" rel="noopener noreferrer" class="btn card !rounded-[14px]">LinkedIn ↗</a></div>
+  </div>
+</div></section>
 
-        <button id="tabBtnRag" onclick="switchLabTab('rag')" class="px-5 py-3 rounded-xl font-display font-semibold text-sm flex items-center gap-2.5 glass-card text-slate-700 dark:text-slate-300">
-          <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-          Tab B: 4-Bit LoRA + Multimodal RAG Pipeline (FBRInsight)
-        </button>
-      </div>
+<footer class="py-8 px-4 border-t text-xs mu" style="border-color:var(--ln)"><div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3"><span>© 2026 Ahmed Raza · meahmedraza.github.io</span><a href="#top" class="hem font-semibold hover:underline">Back to top ↑</a></div></footer>
 
-      <!-- TAB A CONTENT: HISTOPATHOLOGY REGISTRATION & VIRTUAL STAINING -->
-      <div id="labTabVision" class="glass-card rounded-2xl p-6 sm:p-8">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          <!-- Left Interactive Visual Comparison Viewport (7 Cols) -->
-          <div class="lg:col-span-7 space-y-4">
-            <div class="flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
-              <span class="px-2.5 py-1 rounded bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/30">
-                ← Raw Unaligned Scan (Spatial Drift + <1% Fungal Class)
-              </span>
-              <span class="px-2.5 py-1 rounded bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 border border-cyan-500/30">
-                160–180 Pt Registered + Pix2Pix/SegFormer Output →
-              </span>
-            </div>
+<div id="ts" class="fixed bottom-6 right-6 z-50 translate-y-20 opacity-0 pointer-events-none"><div class="card px-4 py-3 text-sm font-medium flex items-center gap-2.5 shadow-xl"><span class="w-2 h-2 rounded-full bg-[var(--mnt)]"></span><span id="tm"></span></div></div>
 
-            <!-- Interactive Comparison Stage (Synchronized Aspect Ratio) -->
-            <div id="comparisonStage" class="relative w-full h-72 sm:h-80 rounded-xl overflow-hidden border border-slate-300 dark:border-slate-700 bg-slate-950 select-none shadow-inner">
-              <!-- BASE LAYER (RIGHT SIDE): Registered Virtual H&E Stain + SegFormer/SAM2 Segmentation -->
-              <svg viewBox="0 0 600 320" preserveAspectRatio="xMidYMid slice" class="w-full h-full">
-                <defs>
-                  <radialGradient id="stainedBg" cx="50%" cy="50%" r="70%">
-                    <stop offset="0%" stop-color="#3b1d5e" />
-                    <stop offset="60%" stop-color="#251342" />
-                    <stop offset="100%" stop-color="#110924" />
-                  </radialGradient>
-                  <pattern id="alignedGrid" width="30" height="30" patternUnits="userSpaceOnUse">
-                    <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(6, 182, 212, 0.16)" stroke-width="1"/>
-                  </pattern>
-                </defs>
-                <rect width="600" height="320" fill="url(#stainedBg)" />
-                <rect width="600" height="320" fill="url(#alignedGrid)" />
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const L=(k,t)=>`<a href="${k}" target="_blank" rel="noopener noreferrer">${t}</a>`;
 
-                <!-- Crisp Aligned Cellular Structures -->
-                <g opacity="0.92">
-                  <ellipse cx="140" cy="110" rx="48" ry="32" fill="#7e22ce" stroke="#e9d5ff" stroke-width="1.5"/>
-                  <circle cx="135" cy="110" r="12" fill="#3b0764"/>
-                  <ellipse cx="290" cy="95" rx="56" ry="36" fill="#6b21a8" stroke="#e9d5ff" stroke-width="1.5"/>
-                  <circle cx="295" cy="95" r="14" fill="#3b0764"/>
-                  <ellipse cx="450" cy="130" rx="52" ry="38" fill="#7e22ce" stroke="#e9d5ff" stroke-width="1.5"/>
-                  <circle cx="448" cy="130" r="13" fill="#3b0764"/>
-                  <ellipse cx="210" cy="225" rx="60" ry="35" fill="#6b21a8" stroke="#e9d5ff" stroke-width="1.5"/>
-                  <circle cx="215" cy="225" r="14" fill="#3b0764"/>
-                  <ellipse cx="400" cy="235" rx="50" ry="32" fill="#7e22ce" stroke="#e9d5ff" stroke-width="1.5"/>
-                  <circle cx="395" cy="235" r="12" fill="#3b0764"/>
-                </g>
+/* ---------- DATA ---------- */
+const MT=[['160–',180,' pts','Gigapixel slide registration','Manual control-point alignment in QuPath and Fiji removed GAN label noise','--hem'],['+',15,'%','Minority-class boost','Clinical skin fungus detection (<1% class) via synthetic patch augmentation','--eos'],['',4,'-bit LoRA','Llama-2-7B + FAISS RAG','500+ hrs R&D on noisy FBR tax PDFs; Top 5 of 65 at Product Expo','--mnt'],['',96,'% faster','2–3 hrs → 4–5 mins','Enterprise Python ETL and month-end reconciliation at Avantduo','--hem']];
+const EXP=[
+{c:'research',k:'hem',tag:'Computer vision research',d:'Nov 2025 – May 2026',t:'Deep Learning Research Intern · RISETech (NUST H-12, NSTP)',o:'National Science & Technology Park, Islamabad · Supervisor: Dr. Muhammad Usman Akram',b:['Built PyTorch pipelines for histopathology segmentation, tumor detection and virtual staining using <b>Pix2Pix, DCLGAN, SegFormer and SAM 2</b>.','Automated registration failed on paired gigapixel scans, so I built a manual workflow with <b>160–180 control points in QuPath and Fiji</b> to remove pixel-level label noise.','Raised minority-class accuracy by <b>15%</b> on a <b>&lt;1%</b> skin fungus dataset by rebuilding patch sampling and adding synthetic augmentation on NVIDIA GPUs.','Wrote contrast-preserving OpenCV/NumPy preprocessing and audited outputs for structural hallucinations.']},
+{c:'swe',k:'mnt',tag:'Production data & automation',d:'May 2026 – Present · Remote',t:'Process Automation Software Engineer · Avantduo',o:'Python data pipelines, ETL and automated reconciliation',b:['Built <b>Pandas, OpenPyXL and Streamlit</b> pipelines for cashflow, inventory and month-end workbooks for international clients (<i>Karst, Lucent Globe, Mingle Seasoning, Sodii, Bobby Drinks, Ranged</i>).','Cut processing from <b>2–3 hours to 4–5 minutes (~96%)</b> through automated transformation, account mapping and reconciliation.','Wrote checks that catch swapped pivot columns, broken formulas and transaction variances before reporting.']},
+{c:'research',k:'eos',tag:'Document OCR & efficient LLMs · Top 5/65',d:'Sep 2023 – Jun 2024',t:'Undergraduate Thesis Researcher (OCR & LLM/RAG) · PAF-IAST',o:'Dept. of IT & Computer Science, Haripur · Supervisor: Dr. Waqar Mehmood',b:[`Engineered ${L('https://github.com/meahmedraza/FBR-Insights-Chatbot','FBR-Insights-Chatbot')} (500+ hrs R&D), a question-answering system over multi-column Federal Board of Revenue tax PDFs.`,'Parsed noisy scans with <code>pytesseract</code> and <code>pdfminer</code>, then used <b>Phi-3-mini</b> to generate synthetic question-answer pairs.','Fine-tuned <b>Llama-2-7B</b> with <b>LoRA and 4-bit quantization</b> to fit tight GPU memory, tracked runs in <code>wandb</code>, and added <b>FAISS</b> retrieval.','Evaluated with Accuracy, Precision, Recall and F1 across train, validation and test splits.']},
+{c:'swe',k:'hem',tag:'760 certified industrial hours',d:'Mar–May 2025 & Summers 2021–2022',t:'Software Development Intern · Elexoft, Codematics & Eziline',o:'Wah Cantt & Abbottabad, Pakistan · University-certified industrial training',b:['<b>Elexoft Technologies (320 hrs):</b> backend REST APIs, Python data-processing scripts and relational SQL schemas with Git.','<b>Codematics (240 hrs) and Eziline (200 hrs):</b> object-oriented engineering, database integration and software quality assurance.']}];
+const PJ=[
+{c:'llm',tag:'4-bit LoRA + OCR RAG',m:'★ Top 5 of 65',t:'FBR-Insights-Chatbot',u:'https://github.com/meahmedraza/FBR-Insights-Chatbot',d:'End-to-end legal Q&A over scanned, multi-column FBR tax circulars: <code>pytesseract</code>/<code>pdfminer</code> OCR, synthetic QA via <b>Phi-3-mini</b>, 4-bit <b>Llama-2-7B LoRA</b> fine-tuning and <b>FAISS</b> retrieval.',s:['Llama-2-7B','4-bit LoRA','Phi-3-mini','FAISS','pytesseract'],a:'View GitHub repository ↗'},
+{c:'llm cv',tag:'Vision + language RAG',m:'Open source',t:'Multimodal-RAG-System',u:'https://github.com/meahmedraza/Multimodal-RAG-System',d:'Multimodal retrieval-augmented generation that combines document OCR, visual and text embeddings, and dense vector search to query figures, tables and unstructured text together.',s:['Multimodal embeddings','Document vision','LangChain','Vector DB'],a:'View GitHub repository ↗'},
+{c:'cv',tag:'Medical computer vision',m:'+15% minority acc',t:'Histopathology Virtual Staining & Anomaly Segmentation',u:'#lab',d:'Trained <b>Pix2Pix, DCLGAN, SegFormer and SAM 2</b> on gigapixel biopsy slides. Fixed tissue warping with 160–180 manual control points and lifted &lt;1% fungus detection by 15%.',s:['PyTorch','Pix2Pix / DCLGAN','SegFormer / SAM 2','QuPath & Fiji'],a:'Inspect in the interactive lab ↑'},
+{c:'cv',tag:'Document & script vision',m:'OpenCV + TensorFlow',t:'Hindko Handwritten Character Recognition',u:'https://github.com/meahmedraza',d:'Handwritten character recognition for the regional Hindko script with Python, OpenCV and TensorFlow, using custom morphological denoising and spatial feature extraction for degraded scans.',s:['OpenCV','TensorFlow','Image denoising','Python'],a:'Explore on GitHub ↗'},
+{c:'automation',w:1,tag:'Enterprise Python ETL suite',m:'2–3 hrs → 4–5 mins (~96% faster)',t:'Multi-Entity Financial & Month-End Reporting Automation Engine (Avantduo)',d:'End-to-end Python ETL, cross-tab variance reconciliation and automated Excel generation for international consumer brands (<i>Karst, Lucent Globe, Mingle Seasoning, Sodii, Bobby Drinks, Ranged</i>). Removed manual formula errors, detected swapped pivot columns automatically and cut month-end turnaround from hours to minutes.',s:['Python','Pandas','OpenPyXL','Streamlit','Automated QA validation'],a:'In production · 2026'}];
+const RG=[['Noisy multi-column PDFs & OCR','pytesseract + pdfminer','Input: 500+ FBR circular PDFs · de-skew, strip headers','FBR tax ordinances are published as scanned multi-column PDFs with stamps and broken tables. An ingestion pipeline rebuilds clean, section-level legal clauses before chunking.','raw = pdfminer.extract_pages(pdf)\nocr = pytesseract.image_to_string(prep(pdf))\nclauses = normalize_sections(raw, ocr)'],
+['Synthetic QA pair generation','Phi-3-mini Instruct','Output: verified legal question-answer pairs','No labeled QA dataset existed for Pakistani tax law, so Phi-3-mini generated grounded question-answer pairs from cleaned clauses, and ambiguous generations were filtered out.','prompt = f"Strict statutory QA from clause:\\n{clause}"\nqa = phi3(prompt, max_new_tokens=256, temperature=0.2)'],
+['4-bit quantized LoRA fine-tuning','Llama-2-7B + bitsandbytes','VRAM: ~28 GB (FP16) → ~5.2 GB (NF4) · tracked in wandb','Low-Rank Adaptation with 4-bit NormalFloat quantization let training and inference run on constrained single-GPU hardware without losing statutory precision.','bnb = BitsAndBytesConfig(load_in_4bit=True,\n        bnb_4bit_quant_type="nf4")\nmodel = prepare_model_for_kbit_training(base)'],
+['FAISS vector RAG & guardrails','Precision / Recall / F1 evaluation','Top 5 of 65 · PAF-IAST Product Expo','Statutory embeddings are indexed in FAISS and the LangChain retrieval prompt is hardened against prompt injection, then evaluated end to end on held-out circulars.','docs = index.similarity_search_with_score(q, k=4)\nanswer = rag_chain.invoke({"context": docs, "question": q})']];
+const CW=['Differential Equations (A)','Linear Algebra (B+)','Calculus & Analytical Geometry (B+)','Data Structures & Algorithms (B+ / Lab A)','Intro to Data Science (Lab A-)','Artificial Intelligence','Data Mining (B+)','Big Data Analytics'];
+const GP=[['Cumulative CGPA','2.97',74.25],['Final semester (Fall 24)','3.49',87.25],['Summer 2024 SGPA','4.00',100]];
+const SK=[['Programming & core libraries','--mnt',['Python','PyTorch','TensorFlow','OpenCV','NumPy','Pandas','OpenPyXL','Scikit-learn','SQL']],['Computer vision & generative AI','--hem',['Pix2Pix','DCLGAN','SegFormer','SAM 2','QuPath & Fiji','OCR (pytesseract/pdfminer)']],['LLMs, quantization & RAG','--eos',['Llama-2-7B','Phi-3-mini','LoRA (PEFT)','4-bit (bitsandbytes)','FAISS','LangChain']],['MLOps, cloud & research tools','--mnt',['Linux','Git','Weights & Biases','Docker','Streamlit','AWS & Azure']]];
+const CE=[['Amazon Web Services','AWS Certified Solutions Architect – Associate','https://www.credly.com/earner/earned/badge/723c8060-2a26-4664-ab6a-0dfc5e35d8e1','Credly','Verify credential','--eos'],['Microsoft','Microsoft Certified: Azure AI Fundamentals','https://www.credly.com/earner/earned/badge/280a4531-a79c-490e-9c89-2a3fe0ac27eb','Credly','Verify credential','--hem'],['Amazon Web Services','AWS Certified Cloud Practitioner','https://www.credly.com/earner/earned/badge/4e1e10f5-4e88-442c-8fa5-41141735f92f','Credly','Verify credential','--eos'],['DeepLearning.AI & Stanford','Supervised Machine Learning: Regression & Classification','https://www.coursera.org/account/accomplishments/certificate/OE7XW2BVK8WY','Coursera','ID: OE7XW2BVK8WY','--mnt'],['DeepLearning.AI & Stanford','Advanced Learning Algorithms','https://www.coursera.org/account/accomplishments/certificate/JCRGN9HUP62Q','Coursera','ID: JCRGN9HUP62Q','--mnt'],['Google','Google Advanced Data Analytics Professional Certificate','https://www.coursera.org/account/accomplishments/specialization/certificate/4PSAJKIQTTZA','Coursera','ID: 4PSAJKIQTTZA','--hem'],['IBM','IBM Data Analyst Professional Certificate','https://www.coursera.org/account/accomplishments/specialization/certificate/4I23BWWW6GE8','Coursera','ID: 4I23BWWW6GE8','--eos'],['Google','Google Data Analytics Professional Certificate','https://www.coursera.org/account/accomplishments/specialization/certificate/D4YA4A85QRJO','Coursera','ID: D4YA4A85QRJO','--mnt']];
+const dl=i=>`style="--d:${(i%4)*.08}s"`;
 
-                <!-- SegFormer / SAM 2 Segmentation Contours -->
-                <g id="segMasksLayer">
-                  <ellipse cx="290" cy="95" rx="60" ry="40" fill="rgba(6, 182, 212, 0.18)" stroke="#06B6D4" stroke-width="2.5" stroke-dasharray="6 3"/>
-                  <rect x="230" y="38" width="136" height="20" rx="4" fill="#06B6D4"/>
-                  <text x="238" y="52" fill="#040711" font-family="JetBrains Mono" font-size="10" font-weight="bold">SAM 2 Tumor Mask: 0.94</text>
+/* ---------- RENDER ---------- */
+$('#mt').innerHTML=MT.map((m,i)=>`<div class="rv" ${dl(i)}><div class="card p-5 h-full" style="border-top:3px solid var(${m[5]})"><div class="fd font-extrabold text-3xl sm:text-4xl" style="color:var(${m[5]})">${m[0]}<span class="cn" data-n="${m[1]}">0</span>${m[2]}</div><div class="font-semibold text-sm mt-2">${m[3]}</div><p class="text-xs mu mt-1 leading-relaxed">${m[4]}</p></div></div>`).join('');
+$('#exp').innerHTML=EXP.map((e,i)=>`<div data-c="${e.c}" class="exi rv relative pl-12 sm:pl-16"><i class="dot" style="--k:var(--${e.k})"></i><div class="card p-6 sm:p-7"><div class="flex flex-wrap justify-between gap-2 mb-2"><span class="chip" style="color:var(--${e.k})">${e.tag}</span><span class="text-xs mu">${e.d}</span></div><h3 class="fd font-bold text-xl">${e.t}</h3><p class="text-xs mu mt-1 mb-3">${e.o}</p><ul class="space-y-2 text-sm mu list-disc pl-4 marker:text-[var(--hem)]">${e.b.map(x=>`<li>${x}</li>`).join('')}</ul></div></div>`).join('');
+$('#prj').innerHTML=PJ.map((p,i)=>{const lab=p.u==='#lab',ext=p.u&&!lab;return`<div data-c="${p.c}" class="pji rv ${p.w?'md:col-span-2':''}" ${dl(i)}><article class="card tilt p-6 h-full flex flex-col justify-between"><div><div class="flex items-center justify-between gap-2 mb-4"><span class="chip hem">${p.tag}</span><span class="text-xs font-semibold mnt text-right">${p.m}</span></div><h3 class="fd font-bold text-xl mb-2">${ext?`<a href="${p.u}" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--hem)] transition-colors">${p.t} ↗</a>`:p.t}</h3><p class="text-sm mu mb-4 leading-relaxed">${p.d}</p></div><div><div class="flex flex-wrap gap-1.5 mb-4">${p.s.map(x=>`<span class="chip">${x}</span>`).join('')}</div>${p.u?`<a href="${p.u}" ${ext?'target="_blank" rel="noopener noreferrer"':'onclick="tab(\'v\')"'} class="btn tab !flex justify-center !py-2.5">${p.a}</a>`:`<span class="text-xs mnt font-semibold">${p.a}</span>`}</div></article></div>`}).join('');
+$('#rs').innerHTML=RG.map((r,i)=>`<button class="rb card text-left p-4 !rounded-2xl" onclick="rag(${i})"><div class="text-xs font-semibold hem">Stage ${i+1}</div><div class="fd font-bold text-sm mt-1">${r[0]}</div><div class="text-xs mu mt-1">${r[1]}</div></button>`).join('');
+$('#gp').innerHTML=GP.map(g=>`<div class="p-3 rounded-xl" style="background:color-mix(in srgb,var(--tx) 5%,transparent)"><div class="text-[11px] mu">${g[0]}</div><div class="fd font-bold text-xl">${g[1]} <span class="text-xs mu font-normal">/ 4.00</span></div><div class="bar mt-2"><i style="--w:${g[2]}%"></i></div></div>`).join('');
+$('#cw').innerHTML=CW.map(c=>`<span class="chip">${c}</span>`).join('');
+$('#sk').innerHTML=SK.map(g=>`<div><div class="text-xs font-semibold mb-2" style="color:var(${g[1]})">${g[0]}</div><div class="flex flex-wrap gap-1.5">${g[2].map(x=>`<span class="chip">${x}</span>`).join('')}</div></div>`).join('');
+$('#ce').innerHTML=CE.map((c,i)=>`<div class="rv" ${dl(i)}><a href="${c[2]}" target="_blank" rel="noopener noreferrer" class="card group p-5 h-full flex flex-col justify-between"><div><div class="flex justify-between text-xs font-semibold mb-2" style="color:var(${c[5]})"><span>${c[0]}</span><span>${c[3]} ↗</span></div><h3 class="fd font-bold group-hover:text-[var(--hem)] transition-colors">${c[1]}</h3></div><div class="mt-4 pt-3 border-t flex justify-between text-xs hem font-semibold" style="border-color:var(--ln)"><span>${c[4]}</span><span class="group-hover:translate-x-1 transition-transform">→</span></div></a></div>`).join('');
 
-                  <!-- <1% Minority Fungal Anomaly Isolated -->
-                  <circle cx="485" cy="225" r="24" fill="rgba(16, 185, 129, 0.25)" stroke="#10B981" stroke-width="2.5"/>
-                  <circle cx="485" cy="225" r="7" fill="#10B981"/>
-                  <rect x="380" y="258" width="202" height="20" rx="4" fill="#10B981"/>
-                  <text x="388" y="272" fill="#040711" font-family="JetBrains Mono" font-size="10" font-weight="bold"><1% Fungus Anomaly (+15% Acc)</text>
-                </g>
+/* SVG cells for the histopathology comparison */
+const CL=[[140,110,48,32],[290,95,56,36],[450,130,52,38],[210,225,60,35],[400,235,50,32]];
+$('#cA').innerHTML=CL.map(c=>`<ellipse cx="${c[0]}" cy="${c[1]}" rx="${c[2]}" ry="${c[3]}" fill="#e879a8" stroke="#be185d" stroke-width="1.5"/><circle cx="${c[0]-5}" cy="${c[1]}" r="${c[3]/2.6}" fill="#4c1d95"/>`).join('');
+$('#cB').innerHTML=CL.slice(0,4).map((c,i)=>`<ellipse cx="${c[0]}" cy="${c[1]}" rx="${c[2]}" ry="${c[3]}" fill="#52525b" stroke="#71717a" stroke-width="2" ${i?'':'stroke-dasharray="3 3"'}/>`).join('');
 
-                <!-- 160-180 QuPath Control Points Overlay -->
-                <g id="controlPointsLayer">
-                  <g stroke="#38bdf8" stroke-width="1.5" fill="#0284c7">
-                    <circle cx="80" cy="60" r="4"/><text x="88" y="63" fill="#7dd3fc" font-family="JetBrains Mono" font-size="9">CP_014</text>
-                    <circle cx="195" cy="145" r="4"/><text x="203" y="148" fill="#7dd3fc" font-family="JetBrains Mono" font-size="9">CP_062</text>
-                    <circle cx="355" cy="70" r="4"/><text x="363" y="73" fill="#7dd3fc" font-family="JetBrains Mono" font-size="9">CP_118</text>
-                    <circle cx="340" cy="185" r="4"/><text x="348" y="188" fill="#7dd3fc" font-family="JetBrains Mono" font-size="9">CP_149</text>
-                    <circle cx="515" cy="110" r="4"/><text x="523" y="113" fill="#7dd3fc" font-family="JetBrains Mono" font-size="9">CP_176</text>
-                  </g>
-                </g>
-              </svg>
+/* ---------- INTERACTIONS ---------- */
+const stg=$('#stg'),rg=$('#rg');
+rg.oninput=e=>stg.style.setProperty('--p',e.target.value+'%');
+function tab(t){$('#pv').classList.toggle('hidden',t!=='v');$('#pr').classList.toggle('hidden',t!=='r');$('#tv').classList.toggle('on',t==='v');$('#tr').classList.toggle('on',t==='r');}
+function rag(i){$$('.rb').forEach((b,j)=>b.style.borderColor=i===j?'var(--hem)':'');const r=RG[i];$('#rd').innerHTML=`<div class="pop rounded-2xl p-5 sm:p-6 space-y-4" style="background:#0a0818;color:#e4e0f5"><div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b" style="border-color:rgba(255,255,255,.1)"><span class="fd font-bold text-lg" style="color:#3ee0b0">${r[0]}</span><span class="chip" style="color:#c9bfff;border-color:rgba(149,128,255,.4)">${r[2]}</span></div><p class="text-sm leading-relaxed" style="color:#bdb6dc">${r[3]}</p><pre class="p-4 rounded-xl overflow-x-auto text-xs leading-relaxed font-mono" style="background:#14102b;color:#9ff5d8"><code>${r[4].replace(/</g,'&lt;')}</code></pre></div>`}
+rag(0);
+function flt(g,v,btn){$$('#'+g+'F .tab').forEach(b=>b.classList.toggle('on',b===btn));$$('.'+g+'i').forEach(i=>{const s=v==='all'||i.dataset.c.split(' ').includes(v);i.classList.toggle('hidden',!s);if(s){i.classList.remove('pop');void i.offsetWidth;i.classList.add('pop')}})}
+function toast(m){$('#tm').textContent=m;const t=$('#ts');t.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('show'),2600)}
+function cp(t,m){(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).catch(()=>{const a=document.createElement('textarea');a.value=t;document.body.append(a);a.select();try{document.execCommand('copy')}catch(e){}a.remove()});toast(m)}
+$('#th').onclick=()=>{const d=document.documentElement.classList.toggle('dark');try{localStorage.t=d?'d':'l'}catch(e){}};
+$('#mb').onclick=()=>$('#nl').classList.toggle('open');$$('#nl a').forEach(a=>a.addEventListener('click',()=>$('#nl').classList.remove('open')));
 
-              <!-- OVERLAY LAYER (LEFT SIDE): Unaligned, Low-Contrast Warped Scan (Clip-Path Driven) -->
-              <div id="unalignedClipContainer" class="absolute inset-0 pointer-events-none" style="clip-path: inset(0 52% 0 0);">
-                <svg viewBox="0 0 600 320" preserveAspectRatio="xMidYMid slice" class="w
+/* scroll progress */
+const pb=$('#pb');addEventListener('scroll',()=>{pb.style.transform=`scaleX(${scrollY/Math.max(1,document.documentElement.scrollHeight-innerHeight)})`},{passive:true});
+
+/* pointer: spotlight, 3D tilt and ambient aura */
+const au=$('#au');
+document.addEventListener('pointermove',e=>{au.style.transform=`translate(${e.clientX-260}px,${e.clientY-260}px)`;const c=e.target.closest&&e.target.closest('.card');if(!c)return;const r=c.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;c.style.setProperty('--mx',x+'px');c.style.setProperty('--my',y+'px');if(c.classList.contains('tilt')&&e.pointerType==='mouse')c.style.transform=`perspective(900px) rotateX(${(y/r.height-.5)*-6}deg) rotateY(${(x/r.width-.5)*6}deg) translateY(-4px)`});
+document.addEventListener('pointerout',e=>{const c=e.target.closest&&e.target.closest('.tilt');if(c&&!c.contains(e.relatedTarget))c.style.transform=''});
+
+/* reveal on scroll + animated counters + comparison-slider intro */
+function count(el){const n=+el.dataset.n,t0=performance.now();(function f(t){const p=Math.min(1,(t-t0)/1500);el.textContent=Math.round(n*(1-Math.pow(1-p,4)));if(p<1)requestAnimationFrame(f)})(t0)}
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;e.target.classList.add('in');e.target.querySelectorAll('.cn').forEach(count);io.unobserve(e.target)}),{threshold:.15});
+$$('.rv').forEach(el=>io.observe(el));
+new IntersectionObserver((es,o)=>{if(es[0].isIntersecting){o.disconnect();const t0=performance.now();(function f(t){const p=Math.min(1,(t-t0)/1800),v=94-44*(1-Math.pow(1-p,3));rg.value=v;stg.style.setProperty('--p',v+'%');if(p<1)requestAnimationFrame(f)})(t0)}},{threshold:.5}).observe(stg);
+
+/* scroll-spy */
+const sp=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)$$('#nl a').forEach(a=>a.classList.toggle('act',a.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-45% 0px -50% 0px'});
+$$('main,section[id]').forEach(s=>sp.observe(s));
+
+/* typewriter */
+const W=['virtual-staining models for gigapixel slides','4-bit Llama-2 RAG systems','Python pipelines that turn hours into minutes'];let wi=0,ci=0,dw=false;
+(function t(){const w=W[wi];ci+=dw?-1:1;$('#ty').textContent=w.slice(0,ci);let ms=dw?22:50;if(!dw&&ci===w.length){dw=true;ms=1700}else if(dw&&ci===0){dw=false;wi=(wi+1)%W.length;ms=350}setTimeout(t,ms)})();
+</script>
+</body>
+</html>
